@@ -2,24 +2,21 @@ name: Lint, Type-check, Test, Build, Deploy
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   lint:
-    name: "Lint and Type-check"
+    name: Lint and Type-check
     runs-on: self-hosted
-    strategy:
-      matrix:
-        python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.11"
 
       - name: Install dev dependencies
         run: |
@@ -44,19 +41,16 @@ jobs:
         run: mypy --ignore-missing-imports .
 
   test:
-    name: "Run Tests"
+    name: Run Tests
     runs-on: self-hosted
     needs: lint
-    strategy:
-      matrix:
-        python-version: ["3.11"]
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.11"
 
       - name: Install runtime dependencies
         run: |
@@ -64,4 +58,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run pytest
-        run: pytest --maxfail=1 --disable-warnings -q 
+        run: pytest --maxfail=1 --disable-warnings -q
