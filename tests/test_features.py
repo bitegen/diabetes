@@ -1,5 +1,7 @@
 import random
+
 import pandas as pd
+
 from diabetes_model.config.core import config
 from diabetes_model.processing.data_manager import load_dataset
 

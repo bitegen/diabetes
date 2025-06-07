@@ -1,4 +1,4 @@
-name: Lint, Type-check, Test, Build & Deploy
+name: Lint, Type-check, Test, Build, Deploy
 
 on:
   push:
