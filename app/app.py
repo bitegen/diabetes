@@ -9,7 +9,6 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-# Приводим корень проекта в sys.path, чтобы “import diabetes_model…” работал
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
@@ -18,7 +17,7 @@ from diabetes_model.config.core import config
 app = FastAPI(
     title="Diabetes Prediction API",
     version=config.app_config.version,
-    docs_url=None,
+    # docs_url=None,
     redoc_url=None,
 )
 
@@ -58,7 +57,6 @@ def serve_frontend():
 
 @app.post("/predict", response_model=DiabetesOutput)
 def predict(payload: DiabetesInput):
-    # В Pydantic v2 вместо .dict() используем .model_dump()
     data = payload.model_dump()
     df = pd.DataFrame([data])
     pred = model.predict(df)
