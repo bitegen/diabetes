@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "diabetes_model"
+version = "0.1.0"
+description = "A diabetes-prediction ML pipeline"
+readme = "README.md"     
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Your Name", email = "you@example.com" },
+]
+
+dependencies = [
+  "feature-engine==1.8.3",
+  "joblib==1.5.0",
+  "numpy==2.2.6",
+  "pandas==2.2.3",
+  "pydantic==2.11.4",
+  "scikit-learn==1.6.1",
+  "strictyaml==1.7.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/yourusername/diabetes_model"
+Source   = "https://github.com/yourusername/diabetes_model.git"
+
+[tool.setuptools.packages.find]
+# Include your top‐level package and any subpackages
+include = ["diabetes_model", "diabetes_model.*"]
+
+# 
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = [
+  "E203",  # whitespace before ':', конфликт с black
+  "W503",  # line break before binary operator, конфликт с black
+]
+
+[tool.mypy]
+python_version = 3.11
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true

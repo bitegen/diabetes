@@ -1,0 +1,49 @@
+# Package Overview
+package_name: diabetes_model
+
+pipeline_name: diabetes_model
+pipeline_save_file: diabetes_model_output_v
+
+# Data Files
+training_data_file: diabetes.csv
+test_data_file: diabetes.csv
+
+
+# Variables
+# The variable we are attempting to predict
+target: Outcome
+
+features:
+  - Pregnancies
+  - Glucose
+  - BloodPressure
+  # - SkinThickness
+  - Insulin
+  - BMI
+  # - DiabetesPedigreeFunction
+  - Age
+
+numerical_vars:
+  - Pregnancies
+  - Glucose
+  - BloodPressure
+  # - SkinThickness
+  - Insulin
+  - BMI
+  # - DiabetesPedigreeFunction
+  - Age
+
+numerical_vars_with_na:
+  - Glucose
+  - BloodPressure
+  # - SkinThickness
+  - Insulin
+  - BMI
+
+# set train/test split
+test_size: 0.2
+
+# to set the random seed
+random_state: 0
+
+version: 1.0.0
