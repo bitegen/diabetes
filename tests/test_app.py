@@ -4,7 +4,6 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.app import app
-from diabetes_model.config.core import config
 
 client = TestClient(app)
 
