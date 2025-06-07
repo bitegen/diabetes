@@ -2,8 +2,9 @@ name: Lint, Type-check, Test, Build & Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "master" ]
   pull_request:
+    branches: [ "master" ]
 
 jobs:
   lint:
