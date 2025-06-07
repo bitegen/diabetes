@@ -8,6 +8,7 @@ from diabetes_model.config.core import config
 
 client = TestClient(app)
 
+
 def test_serve_frontend():
     """
     GET / должен вернуть index.html

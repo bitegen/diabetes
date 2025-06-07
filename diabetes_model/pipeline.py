@@ -9,7 +9,9 @@ diabetes_pipe = Pipeline(
         # 1) добавляем индикаторы пропусков там, где нужно
         (
             "missing_indicator",
-            AddMissingIndicator(variables=config.model_config_params.numerical_vars_with_na),
+            AddMissingIndicator(
+                variables=config.model_config_params.numerical_vars_with_na
+            ),
         ),
         # 2) заполняем численные признаки медианой
         (
@@ -24,7 +26,9 @@ diabetes_pipe = Pipeline(
         # 4) классификатор
         (
             "classifier",
-            RandomForestClassifier(random_state=config.model_config_params.random_state),
+            RandomForestClassifier(
+                random_state=config.model_config_params.random_state
+            ),
         ),
     ]
 )
