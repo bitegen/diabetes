@@ -5,6 +5,7 @@ import joblib
 import pandas as pd
 from sklearn.pipeline import Pipeline
 
+# from config.core import DATASET_DIR, TRAINED_MODEL_DIR, config
 from diabetes_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, config
 
 

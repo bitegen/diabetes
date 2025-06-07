@@ -3,7 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
-from diabetes_model.config.core import config
+from config.core import config
 
 diabetes_pipe = Pipeline(
     [

@@ -21,4 +21,4 @@ diabetes_model.egg-info/
 
 build/
 
-.venv/
+venv/
