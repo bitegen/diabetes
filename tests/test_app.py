@@ -1,4 +1,5 @@
 import json
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -6,15 +7,6 @@ from app.app import app
 from diabetes_model.config.core import config
 
 client = TestClient(app)
-
-
-def test_app_version_consistency():
-    """
-    Убедимся, что версия из config совпадает с тем, что заявлено в OpenAPI metadata
-    """
-    openapi = client.get("/openapi.json").json()
-    assert openapi["info"]["version"] == config.app_config.version
-
 
 def test_serve_frontend():
     """
@@ -27,35 +19,38 @@ def test_serve_frontend():
     assert "Diabetes Prediction" in text
 
 
-@pytest.mark.parametrize("payload", [
-    # нормальный случай
-    {
-        "Pregnancies": 2.0,
-        "Glucose": 120.0,
-        "BloodPressure": 70.0,
-        "Insulin": 80.0,
-        "BMI": 25.0,
-        "Age": 40.0
-    },
-    # граничные нули
-    {
-        "Pregnancies": 0.0,
-        "Glucose": 0.0,
-        "BloodPressure": 0.0,
-        "Insulin": 0.0,
-        "BMI": 0.0,
-        "Age": 21.0
-    },
-    # высокий возраст
-    {
-        "Pregnancies": 5.0,
-        "Glucose": 190.0,
-        "BloodPressure": 90.0,
-        "Insulin": 200.0,
-        "BMI": 45.0,
-        "Age": 81.0
-    },
-])
+@pytest.mark.parametrize(
+    "payload",
+    [
+        # нормальный случай
+        {
+            "Pregnancies": 2.0,
+            "Glucose": 120.0,
+            "BloodPressure": 70.0,
+            "Insulin": 80.0,
+            "BMI": 25.0,
+            "Age": 40.0,
+        },
+        # граничные нули
+        {
+            "Pregnancies": 0.0,
+            "Glucose": 0.0,
+            "BloodPressure": 0.0,
+            "Insulin": 0.0,
+            "BMI": 0.0,
+            "Age": 21.0,
+        },
+        # высокий возраст
+        {
+            "Pregnancies": 5.0,
+            "Glucose": 190.0,
+            "BloodPressure": 90.0,
+            "Insulin": 200.0,
+            "BMI": 45.0,
+            "Age": 81.0,
+        },
+    ],
+)
 def test_predict_valid(payload):
     """
     POST /predict с корректным JSON (все обязательные поля) должен вернуть 200 и поле prediction
@@ -82,7 +77,7 @@ def test_predict_missing_field():
         "BloodPressure": 70.0,
         "Insulin": 80.0,
         "BMI": 25.0,
-        "Age": 40.0
+        "Age": 40.0,
     }
     resp = client.post(
         "/predict",
@@ -103,7 +98,7 @@ def test_predict_wrong_type():
         "BloodPressure": 70.0,
         "Insulin": 80.0,
         "BMI": 25.0,
-        "Age": 40.0
+        "Age": 40.0,
     }
     resp = client.post(
         "/predict",

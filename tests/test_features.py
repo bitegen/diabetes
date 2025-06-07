@@ -1,10 +1,6 @@
 import random
-
 import pandas as pd
-from pathlib import Path
-
-# from diabetes_model.processing.data_manager import load_dataset
-from diabetes_model.config.core import config, DATASET_DIR
+from diabetes_model.config.core import config
 from diabetes_model.processing.data_manager import load_dataset
 
 
@@ -16,7 +12,7 @@ def test_three_random_rows_are_numeric():
     df: pd.DataFrame = load_dataset(file_name=config.app_config.training_data_file)
     assert not df.empty, "Dataset is empty"
     n_rows = df.shape[0]
-    n_samples = min(3, n_rows)  
+    n_samples = min(3, n_rows)
 
     random_indices = random.sample(list(df.index), k=n_samples)
 
@@ -29,4 +25,4 @@ def test_three_random_rows_are_numeric():
             try:
                 float(val)
             except Exception as e:
-                return
+                raise e

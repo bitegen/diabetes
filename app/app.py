@@ -1,12 +1,13 @@
 import sys
 from pathlib import Path
-import uvicorn
-import pandas as pd
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from pydantic import BaseModel, Field
+
 import joblib
+import pandas as pd
+import uvicorn
+from fastapi import FastAPI
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
 
 # Приводим корень проекта в sys.path, чтобы “import diabetes_model…” работал
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,7 +18,8 @@ from diabetes_model.config.core import config
 app = FastAPI(
     title="Diabetes Prediction API",
     version=config.app_config.version,
-    docs_url=None, redoc_url=None
+    docs_url=None,
+    redoc_url=None,
 )
 
 HERE = Path(__file__).parent
@@ -38,7 +40,7 @@ class DiabetesInput(BaseModel):
     Pregnancies: float
     Glucose: float
     BloodPressure: float
-    # SkinThickness и DiabetesPedigreeFunction мы сняли из UI, 
+    # SkinThickness и DiabetesPedigreeFunction мы сняли из UI,
     # но если модель их не ждёт, их можно вообще убрать из pydantic-модели.
     Insulin: float
     BMI: float

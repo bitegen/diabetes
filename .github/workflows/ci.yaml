@@ -1,23 +1,45 @@
-name: Pylint
+name: Lint, Type-check, Test, Build & Deploy
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  lint:
+    name: "Lint & Type-check"
+    runs-on: self-hosted
     strategy:
       matrix:
         python-version: ["3.11"]
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install pylint
-    - name: Analysing the code with pylint
-      run: |
-        pylint $(git ls-files '*.py')
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install \
+            black==23.9.1 \
+            isort==5.12.0 \
+            flake8==5.0.4 \
+            mypy==1.5.1 \
+            pytest
+
+      - name: Run Black (check only)
+        run: black . --check
+
+      - name: Run isort (check only)
+        run: isort . --check-only
+
+      - name: Run flake8
+        run: flake8 .
+
+      - name: Run mypy
+        run: mypy --ignore-missing-imports .
+
+

@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Sequence, Optional
+from typing import List, Optional, Sequence
 
 from pydantic import BaseModel
 from strictyaml import YAML, load
@@ -7,21 +7,22 @@ from strictyaml import YAML, load
 MODULE_FOLDER = Path(__file__).resolve().parent
 LOG_FOLDER = Path(__file__).resolve().parent.parent
 
-CONFIG_FILE_PATH  = MODULE_FOLDER / "config.yml"
+CONFIG_FILE_PATH = MODULE_FOLDER / "config.yml"
 
-DATASET_DIR       = LOG_FOLDER / "datasets"
+DATASET_DIR = LOG_FOLDER / "datasets"
 TRAINED_MODEL_DIR = LOG_FOLDER / "trained_models"
-LOG_DIR           = LOG_FOLDER / "logs"
+LOG_DIR = LOG_FOLDER / "logs"
 
 
 class AppConfig(BaseModel):
     """
     Application-level config.
     """
-    package_name:      str
+
+    package_name: str
     training_data_file: str
     pipeline_save_file: str
-    version:           str
+    version: str
 
 
 class ModelConfig(BaseModel):
@@ -29,17 +30,19 @@ class ModelConfig(BaseModel):
     All configuration relevant to model training
     and feature engineering.
     """
-    target:                str
-    features:              List[str]
-    numerical_vars:        Sequence[str]
+
+    target: str
+    features: List[str]
+    numerical_vars: Sequence[str]
     numerical_vars_with_na: Sequence[str]
-    test_size:             float
-    random_state:          int
+    test_size: float
+    random_state: int
 
 
 class Config(BaseModel):
     """Master config object."""
-    app_config:         AppConfig
+
+    app_config: AppConfig
     model_config_params: ModelConfig
 
 
@@ -67,8 +70,8 @@ def create_and_validate_config(parsed_config: YAML = None) -> Config:
 
     # Предполагается, что в parsed_config.data лежат все поля для обоих моделей
     _config = Config(
-        app_config=         AppConfig(**parsed_config.data),
-        model_config_params= ModelConfig(**parsed_config.data),
+        app_config=AppConfig(**parsed_config.data),
+        model_config_params=ModelConfig(**parsed_config.data),
     )
     return _config
 

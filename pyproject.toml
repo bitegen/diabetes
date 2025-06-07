@@ -24,33 +24,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/diabetes_model"
-Source   = "https://github.com/yourusername/diabetes_model.git"
+Homepage = "https://github.com/bitegen/diabetes"
+Source   = "https://github.com/bitegen/diabetes.git"
 
 [tool.setuptools.packages.find]
 # Include your top‐level package and any subpackages
 include = ["diabetes_model", "diabetes_model.*"]
-
-# 
-
-[tool.black]
-line-length = 88
-target-version = ["py311"]
-include = '\.pyi?$'
-
-[tool.isort]
-profile = "black"
-line_length = 88
-
-[tool.flake8]
-max-line-length = 88
-extend-ignore = [
-  "E203",  # whitespace before ':', конфликт с black
-  "W503",  # line break before binary operator, конфликт с black
-]
-
-[tool.mypy]
-python_version = 3.11
-warn_unused_configs = true
-disallow_untyped_defs = false
-ignore_missing_imports = true
