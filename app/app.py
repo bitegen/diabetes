@@ -39,8 +39,6 @@ class DiabetesInput(BaseModel):
     Pregnancies: float
     Glucose: float
     BloodPressure: float
-    # SkinThickness и DiabetesPedigreeFunction мы сняли из UI,
-    # но если модель их не ждёт, их можно вообще убрать из pydantic-модели.
     Insulin: float
     BMI: float
     Age: float

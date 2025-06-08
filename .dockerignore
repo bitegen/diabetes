@@ -1,0 +1,26 @@
+.git/
+
+# Pycharm cache
+.idea/
+
+# mypy cache
+.mypy_cache/
+
+__pycache__/
+
+# tox
+.tox/
+
+# Package files
+dist/
+diabets_model.egg-info/
+diabetes_model.egg-info/
+
+.pytest_cache/
+
+# Mac
+.DS_Store
+
+build/
+
+venv/
